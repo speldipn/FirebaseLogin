@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Firebase</string>
+    <string name="register_btn_name">Register</string>
+    <string name="edit_id">input id</string>
+    <string name="edit_name">input name</string>
+    <string name="edit_email">input email</string>
+</resources>
