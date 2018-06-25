@@ -21,6 +21,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
+  public final String TAG_NAME = "speldipn";
+
   FirebaseDatabase database;
   DatabaseReference userRef;
 
@@ -43,10 +45,8 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+
     ButterKnife.bind(this);
-    if(savedInstanceState != null) {
-      return;
-    }
     initDB();
     setApdater();
     setEvent();
@@ -55,13 +55,8 @@ public class MainActivity extends AppCompatActivity {
   public void initDB() {
     // 데이터베이스 연결
     database = FirebaseDatabase.getInstance();
-
     // 연결할 노드를 설정
     userRef = database.getReference("users");
-
-    // 연결한 노드에 값을 넣는다
-    // 값을 강제로 설정
-    userRef.setValue("spdn");
   }
 
   public void setApdater() {
@@ -75,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     userRef.addValueEventListener(new ValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot dataSnapshot) {
-//        list.clear();
+        list.clear();
         for(DataSnapshot dss : dataSnapshot.getChildren()) {
           User user = dss.getValue(User.class);
           list.add(user);
@@ -85,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
       @Override
       public void onCancelled(DatabaseError databaseError) {
-        Log.d("speldipn", "onCancelled가 호출됨");
+        Log.d(TAG_NAME, "onCancelled " + databaseError.getMessage());
       }
     });
   }
